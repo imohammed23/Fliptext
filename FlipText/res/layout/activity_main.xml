@@ -1,0 +1,49 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
+
+    <EditText
+        android:id="@+id/inputText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:ems="10"
+        android:height="100dip"
+        android:hint="@string/edittext_hint_inputText"
+        android:inputType="textMultiLine"
+        android:overScrollMode="ifContentScrolls"
+        android:singleLine="false" />
+
+    <Button
+        android:id="@+id/clear"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/inputText"
+        android:layout_below="@+id/inputText"
+        android:text="@string/button_clear_text" />
+
+    <EditText
+        android:id="@+id/flipText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/clear"
+        android:ems="10"
+        android:focusable="false"
+        android:freezesText="true"
+        android:gravity="center_vertical|top"
+        android:height="100dip"
+        android:hint="@string/edittext_hint_flipText"
+        android:inputType="textMultiLine"
+        android:overScrollMode="ifContentScrolls"
+        android:singleLine="false" >
+
+        <requestFocus />
+    </EditText>
+
+</RelativeLayout>
