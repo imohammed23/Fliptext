@@ -1,0 +1,11 @@
+<resources>
+
+    <string name="app_name">FlipText</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="menu_settings">Settings</string>
+    <string name="title_activity_main">Flip Text</string>
+    <string name="edittext_hint_inputText">Enter Text</string>
+    <string name="button_clear_text">clear</string>
+    <string name="edittext_hint_flipText">Flipped Text</string>
+
+</resources>
