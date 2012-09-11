@@ -1,11 +1,15 @@
 package com.ft.fliptext;
 
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.Hashtable;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.text.Editable;
 import android.text.TextWatcher;
-
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
@@ -15,6 +19,7 @@ import android.widget.TextView;
  * @author Imran
  *
  */
+ 	
 /**
  * @author Imran
  *
@@ -27,6 +32,9 @@ public class MainActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        
+      //Load the text file into hash table
+    	final Hashtable<String, String> characters = flipCharHashTable();
         
         inputText = (TextView)findViewById(R.id.inputText);
         inputText.addTextChangedListener(new TextWatcher(){
@@ -55,7 +63,7 @@ public class MainActivity extends Activity {
  
 		        flipText = (TextView) findViewById(R.id.flipText);
 		        CharSequence charS = inputText.getText();
-		        flipText.setText(flipString(charS));
+		        flipText.setText(flipString(charS, characters));
 				
 			}
         });
@@ -75,183 +83,98 @@ public class MainActivity extends Activity {
         return true;
     }
     
-    /***
-     * Method to flip a charSequence.
-     * accepts a char sequence and returns a String.
-     * @param charS
-     * @return
-     */
-    public String flipString(CharSequence charS) {
 
+    /***
+     * Method to Flip characters
+     * @param charS
+     * @return String
+     */
+    public String flipString(CharSequence charS, Hashtable<String, String> characters)
+    {
     	String fText = "";
     	for(int i= charS.length()-1;i>=0;i--)
     	{
-    		fText += flipChar(Character.toLowerCase(charS.charAt(i)));
+    		if(characters.containsKey(Character.toLowerCase(charS.charAt(i))+""))
+    		{
+    			fText += characters.get(Character.toLowerCase(charS.charAt(i))+"");
+    		}else
+    		{
+    			fText += Character.toLowerCase(charS.charAt(i));
+    		}
     	}
     	return fText;
     }
     
     /***
-     * Method to the flipped element of a letter using Uni code.
-     * accepts a char and returns suitable reversed unicode char.
-     * @param c
+     * Method to read text data and add keys and values of letters to hash table.
      * @return
      */
-    public char flipChar(char c)
+    public Hashtable<String, String> flipCharHashTable()
     {
-    	if (c == 'a') {
-    		return '\u0250';
-    	}
-    	else if (c == 'b') {
-    		return 'q';
-    	}
-    	else if (c == 'c') {
-    		return '\u0254';
-    	}
-    	else if (c == 'd') {
-    		return 'p';
-    	}
-    	else if (c == 'e') {
+    	Hashtable<String, String> characters = new Hashtable<String, String>();
+    	
+    	try{
     		
-    		return Character.valueOf('\u0259');
-    	}
-    	else if (c == 'f') {
-    		return '\u025F';
-    	}
-    	else if (c == 'g') {
-    		return 'b';
-    	}
-    	else if (c == 'h') {
-    		return '\u0265';
-    	}
-    	else if (c == 'i') {
-    		return '!';
-    	}
-    	else if (c == 'j') {
-    		return '\u027E';
-    	}
-    	else if (c == 'k') {
-    		return '\u029E';
-    	}
-    	else if (c == 'l') {
-    		return 'ǀ';/*0x01C0*/
-    	}
-    	else if (c == 'm') {
-    		return '\u026F';
-    	}
-    	else if (c == 'n') {
-    		return 'u';
-    	}
-    	else if (c == 'o') {
-    		return 'o';
-    	}
-    	else if (c == 'p') {
-    		return 'd';
-    	}
-    	else if (c == 'q') {
-    		return 'b';
-    	}
-    	else if (c == 'r') {
-    		return '\u0279';
-    	}
-    	else if (c == 's') {
-    		return 's';
-    	}
-    	else if (c == 't') {
-    		return '\u0287';
-    	}
-    	else if (c == 'u') {
-    		return 'n';
-    	}
-    	else if (c == 'v') {
-    		return '\u028C';
-    	}
-    	else if (c == 'w') {
-    		return '\u028D';
-    	}
-    	else if (c == 'x') {
-    		return 'x';
-    	}
-    	else if (c == 'y') {
-    		return '\u028E';
-    	}
-    	else if (c == 'z') {
-    		return 'z';
-    	}
-    	else if (c == '[') {
-    		return ']';
-    	}
-    	else if (c == ']') {
-    		return '[';
-    	}
-    	else if (c == '(') {
-    		return ')';
-    	}
-    	else if (c == ')') {
-    		return '(';
-    	}
-    	else if (c == '{') {
-    		return '}';
-    	}
-    	else if (c == '}') {
-    		return '{';
-    	}
-    	else if (c == '?') {
-    		return '\u00BF';  
-    	}
-    	else if (c == '\u00BF') {
-    		return '?';
-    	}
-    	else if (c == '!') {
-    		return '\u00A1';
-    	}
-    	else if (c == '\'') {
-    		return '\u0314';
-    	}
-    	else if (c == ',') {
-    		return '\u02BD';
-    	}
-    	else if (c == '.') {
-    		return '\u02D9';
-    	}
-    	else if (c == '_') {
-    		return '\u203E';
-    	}
-    	else if (c == '9') {
-    		return '6';
-    	}
-    	else if (c == '6') {
-    		return '9';
-    	}
-    	else if (c == '!') {
-    		return '\u00A1';
-    	}
-    	else if (c == '<') {
-    		return '>';
-    	}
-    	else if (c == '>') {
-    		return '<';
-    	}
-    	else if (c == '\u203F') {
-    		return '\u2040';
-    	}
-    	else if (c == '\u2045') {
-    		return '\u2046';
-    	}
-    	else if (c == '\u2234') {
-    		return '\u2235';
-    	}
-    	else if (c == '\r') {
-    		return '\n';
-    	}
-    	else if(c == '\\'){
-    		return '/';
-    	}
-    	else if(c=='/'){
-    		return '\\';
-    	}
-
-    	return c;
+    		  //Read input file from assets-unicode.txt
+    		  InputStream in = getAssets().open("unicode.txt");
+			  BufferedReader br = new BufferedReader(new InputStreamReader(in,"UTF-16"));
+			  String strLine;
+			  //Read each line and adding chars key and value to hash table
+			  while ((strLine = br.readLine()) != null)   {
+			  
+				  String letters[] = strLine.split("#");
+				  
+				  if(letters[0].startsWith("\\u"))
+				  {
+					  String lett = ConvertByteCodetoString(letters[0]);
+					  if(letters[1].startsWith("\\u"))
+					  {
+						  String lett1 = ConvertByteCodetoString(letters[1]);
+						  characters.put(lett, lett1);
+					  }
+					  else
+					  {
+						  characters.put(lett, letters[1]);
+					  }
+				  }else
+				  {
+					  if(letters[1].startsWith("\\u"))
+					  {
+						  String lett1 = ConvertByteCodetoString(letters[1]);
+						  characters.put(letters[0], lett1);
+					  }
+					  else
+					  {
+						  characters.put(letters[0], letters[1]);
+					  }
+				  }
+			  }
+			  //Close the input stream
+			  in.close();
+			    }catch (Exception e){//Catch exception if any
+			  System.err.println("Error: " + e.getMessage());
+			  }
+    	return characters;
 
     }
+    
+    /***
+     * Convert Byte code from file to String
+     * @param bString
+     * @return
+     */
+    
+    public String ConvertByteCodetoString(String bString)
+    {
+    	String lett = "";
+    	String temp = bString.split(" ")[0];
+		  temp = temp.replace("\\","");
+		  String[] arr = temp.split("u");
+		  for(int i = 1; i < arr.length; i++){
+			  int hexVal = Integer.parseInt(arr[i], 16);
+			  lett += (char)hexVal;
+			  }
+    	return lett;
+    }
+    
 }
