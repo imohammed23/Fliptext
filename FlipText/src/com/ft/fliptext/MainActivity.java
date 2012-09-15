@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Hashtable;
 
+import android.*;
 import android.os.Bundle;
 import android.app.Activity;
 import android.text.Editable;
@@ -60,6 +61,7 @@ public class MainActivity extends Activity {
 			public void onTextChanged(CharSequence arg0, int arg1, int arg2,
 					int arg3) {
 				// TODO Auto-generated method stub
+				
  
 		        flipText = (TextView) findViewById(R.id.flipText);
 		        CharSequence charS = inputText.getText();
